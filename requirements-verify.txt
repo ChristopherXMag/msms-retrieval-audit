@@ -1,0 +1,2 @@
+# Python 3.11; no model framework is required for archived metric checking.
+numpy==1.25.0

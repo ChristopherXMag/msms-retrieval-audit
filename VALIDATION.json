@@ -1,0 +1,49 @@
+{
+  "checked_date": "2026-11-15",
+  "status": "PASS_WITH_DOCUMENTED_SCOPE",
+  "passed": {
+    "fresh_prediction_environment": "Python 3.11 + NumPy 1.25.0; pip check passes",
+    "primary_metric_rows": {
+      "validation": 15,
+      "test": 15,
+      "weightings": [
+        "query_weighted",
+        "connectivity_balanced"
+      ]
+    },
+    "primary_paired_bootstrap_draws": 10000,
+    "independently_reproduced_R3_paired_intervals": 8,
+    "supplementary_estimate_groups": [
+      "R1a",
+      "R1b",
+      "R2",
+      "R3",
+      "R4",
+      "R5a",
+      "R6_lite"
+    ],
+    "neural_checkpoints_loaded": 19,
+    "checkpoint_checks": "PyTorch 2.2.1 CPU mmap; audited metadata preflight; all primary/alias state tensor shapes, bytes and SHA256; finite model values",
+    "tree_models_loaded": 6,
+    "tree_smoke": "36 features; finite synthetic predictions only",
+    "public_mathematical_tests": 6,
+    "internal_export_and_metadata_fixtures": 9,
+    "figure_data_render_smokes": 3,
+    "plot_requirements_resolution": "Python 3.12 wheel dependency resolution passes; no fresh full plot installation",
+    "manuscript_primary_table_cells_checked": 83,
+    "large_archive_assets_changed": false
+  },
+  "limits": [
+    "No fresh model fitting or full-system real-data inference",
+    "No fresh full Stage 1/fragment/MCES environment installation",
+    "Figures 2\u20134 data render smoke uses default font; exact licensed Arial unavailable on this host",
+    "ChemDraw/ChemScript depiction and MCES solver not rerun",
+    "Fresh R1 permutation/bootstrap distributions not rerun; their archived values remain available",
+    "Intervals condition on fixed fitted models; no training/selection uncertainty is added",
+    "Licenses are scoped by ownership; upstream terms remain separate; final publication review remains required"
+  ],
+  "peak_guarded_worker_rss_mib": 521.55,
+  "swap_growth": false,
+  "gpu_jobs_run": false,
+  "validation_context": "Prepublication verification snapshot, 15 November 2026"
+}

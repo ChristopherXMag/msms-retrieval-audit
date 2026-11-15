@@ -1,0 +1,54 @@
+{
+  "schema": "sccf_official_validation_config_v1",
+  "official_test_read": false,
+  "seeds": [
+    20260621,
+    20260622,
+    20260623
+  ],
+  "paths": {
+    "train_metadata": "artifacts/metadata/train.metadata.jsonl",
+    "val_metadata": "artifacts/metadata/val.metadata.jsonl",
+    "train_dreams": "artifacts/spectra/train.no_head.npy",
+    "val_dreams": "artifacts/spectra/val.no_head.npy",
+    "fingerprint_manifest": "artifacts/sccf/manifest.json",
+    "candidate_manifest": "artifacts/candidate_index/manifest.json",
+    "negative_exclusion_manifest": "artifacts/heldout_connectivity_exclusion/manifest.json",
+    "molecule_smiles": "artifacts/molecule_rows/full_smiles.txt",
+    "run_root": "outputs/official_validation"
+  },
+  "protocol": {
+    "candidate_pool_limit": 256,
+    "candidate_negatives": 127,
+    "epochs": 1,
+    "batch_size": 128,
+    "eval_batch_size": 64,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "hidden_dim": 2048,
+    "projection_dim": 1024,
+    "dropout": 0.2,
+    "temperature": 0.07,
+    "blocks": [
+      "count_morgan",
+      "count_atom_pair",
+      "rdkit_path_count",
+      "maccs"
+    ],
+    "block_normalization": "block_l2",
+    "negative_sampling": "random",
+    "train_sampling": "row_shuffle"
+  },
+  "controls": {
+    "permutation_seeds": [
+      20260820,
+      20260821,
+      20260822
+    ],
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20260820,
+    "candidate_order_seed": 20260820,
+    "candidate_only_train_pools": 2048,
+    "candidate_only_workers": 2
+  }
+}

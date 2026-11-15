@@ -1,0 +1,49 @@
+{
+  "schema": "msms_release_assets_v1",
+  "repository": "https://github.com/ChristopherXMag/msms-retrieval-audit",
+  "total_zip_bytes": 3506206118,
+  "assets": {
+    "coverage_models-01.zip": {
+      "bytes": 923662979,
+      "sha256": "f9e8a8694875a8fd14844dbaeeff6627cdf9a7ed9708aeff679241611e266c7e",
+      "files": 3
+    },
+    "coverage_models-02.zip": {
+      "bytes": 307887661,
+      "sha256": "3061de107f83fbb6b8845f6448b86f8738b296bb59093ef567b09263856aff5f",
+      "files": 1
+    },
+    "figures-01.zip": {
+      "bytes": 501775,
+      "sha256": "cf84ead9b0bcaccaf226a46122396961f03fa94ce6cad37d966de60f4c55494f",
+      "files": 7
+    },
+    "models-01.zip": {
+      "bytes": 845849189,
+      "sha256": "33c27dd0c93e01204f8d7c6e496b962ac2a5530651b0fa9e5f00bfa89c43e717",
+      "files": 14
+    },
+    "models-02.zip": {
+      "bytes": 782850464,
+      "sha256": "fe1d973c1b594172db326082f37d3b3b1cef4a3b7a9dbf3ceb5e6d7aa452623f",
+      "files": 3
+    },
+    "models-03.zip": {
+      "bytes": 320712679,
+      "sha256": "cc005645605d530cd25cb1304546529420148a36c7ac0750441a219caefd0cb7",
+      "files": 4
+    },
+    "supplementary-01.zip": {
+      "bytes": 1751625,
+      "sha256": "c81f7ae2b1fce31c1b47a5f3d0f5773f8e3038e887b2640b9c3b8a36db90f483",
+      "files": 15
+    },
+    "verification-01.zip": {
+      "bytes": 322989746,
+      "sha256": "84cbc46a3bbadd14fb7d86db91f5fd490ad0b54af9fb112bbee1efd384f4756a",
+      "files": 92
+    }
+  },
+  "version": "1.0.0",
+  "tag": "v1.0.0"
+}

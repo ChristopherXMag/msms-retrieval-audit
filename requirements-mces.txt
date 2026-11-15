@@ -1,0 +1,6 @@
+# Recorded structural-distance environment, Python 3.11; not needed for metrics.
+numpy==1.25.0
+rdkit==2023.9.6
+myopic-mces==1.3.2
+PuLP==3.3.2
+highspy==1.15.1

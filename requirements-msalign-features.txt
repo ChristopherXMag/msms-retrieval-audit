@@ -1,0 +1,4 @@
+# Additional pins for the recorded MSAlign feature-extraction environment.
+# Use with the Stage 1 environment; do not overwrite a fragment/MCES environment.
+transformers==4.53.3
+tokenizers==0.21.4

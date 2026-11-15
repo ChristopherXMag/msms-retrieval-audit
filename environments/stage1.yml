@@ -1,0 +1,17 @@
+name: sccf-stage1
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pytorch=2.2.1
+  - pytorch-cuda=12.1
+  - numpy=1.25.0
+  - scipy=1.15.3
+  - scikit-learn=1.5.2
+  - pandas=2.2.1
+  - rdkit=2025.09.6
+  - tqdm=4.70.1
+  - pyyaml=6.0.3
+  - pytest=8.3

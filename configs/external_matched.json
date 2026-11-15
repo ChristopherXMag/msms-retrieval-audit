@@ -1,0 +1,219 @@
+{
+  "schema": "glmr_external_adaptation_contract_v1",
+  "date": "2026-10-14",
+  "source": {
+    "repo": "https://github.com/ChristopherXMag/MSAlign-NeurIPS2026",
+    "commit": "c2ef425b68749052a17b9cdd5f5f11709322654e",
+    "license": "MIT",
+    "archive": "outputs/e0_external_contract_20261014/upstream",
+    "zenodo_context_only": "22830464",
+    "paper": "papers/Krzakala 等 - 2026 - MSAlign Aligning Molecule and Mass Spectra representations for Metabolite Identification.pdf",
+    "paper_sha256": "a31d1167b0ded72f64717881dd6cba0946a56b495d76f169d8e44115c3266fda"
+  },
+  "assets": {
+    "train_metadata": "outputs/msalign_stage1_full_v15/train_full.metadata.jsonl",
+    "val_metadata": "outputs/msalign_stage1_full_v15/val_full.metadata.jsonl",
+    "train_mgf": "outputs/msalign_stage1_full_v15/train_full.mgf",
+    "val_mgf": "outputs/msalign_stage1_full_v15/val_full.mgf",
+    "candidate_manifest": "outputs/run_k_full_train/candidate_index_full_v15_mass_cap256_full_order/manifest.json",
+    "smiles": "outputs/run_k_full_train/full_sparse/full_smiles.txt",
+    "negative_exclusion": "outputs/stage1_submission_0926/assets/heldout_connectivity_exclusion/manifest.json",
+    "candidate_provenance": "outputs/stage1_submission_0926/assets/official_candidate_provenance.json",
+    "datasafe_checkpoint": "external/DreaMS/dreams/models/pretrained/embedding_model_massspecgym.ckpt",
+    "datasafe_checkpoint_sha256": "d9b4e8b920ff367370c5a3fa154eaa951f90bafa58d5224a594424d9c54b1832",
+    "existing_train_spectrum_summary": "outputs/run_k_official_datasafe_seed20260621/train.no_head.summary.json",
+    "existing_val_spectrum_summary": "outputs/run_k_official_datasafe_seed20260621/val.no_head.summary.json",
+    "wrong_spectrum_assignments": "outputs/stage1_submission_0926/runs/full_r2_block_l2/seed20260621/blind_controls/spectrum_permutation_exact_mass.per_query.npz"
+  },
+  "common": {
+    "dataset": "MassSpecGym v1.5 official train/val; no val/test exchange",
+    "dataset_revision": "0dc77f670939718f333cd06e8a7b70fdfc5a39a5",
+    "rdkit": "2025.09.6",
+    "identity": "RDKit canonical-isomeric SMILES; connectivity recomputed InChIKey first block",
+    "seeds": [
+      20260621,
+      20260622,
+      20260623
+    ],
+    "candidate_cap": 256,
+    "candidate_policy": "reuse frozen index in full order; no insertion, formula filter, regeneration or new deduplication",
+    "negatives": "uniform non-GT row sampling without replacement after existing held-out-connectivity exclusion; pad with masked zeros when short; GT retained",
+    "negative_identity_disclosure": "pre-existing validation/test identity-only denylist is transductive; no new test file reads",
+    "selection": {
+      "metric": "official-val query-weighted uniform-tie-expected R@1",
+      "cadence": "after each complete all-row epoch and final partial epoch at max steps",
+      "ties": "earliest optimizer step",
+      "early_stopping": false,
+      "epoch0_eligible": false
+    },
+    "aggregation": "single seed rows and arithmetic mean +/- sample SD of seed metrics; no best-seed selection; cross-method mean-logit ensemble deferred until separately frozen",
+    "metrics": [
+      "R@1",
+      "R@5",
+      "R@20",
+      "MRR"
+    ],
+    "ties": "physical candidate-order permutation seed 20261014 with GT slot tracking; exact uniform expectation over GT tie group; retain greater/equal counts",
+    "missing_gt": "retain query with contribution 0; report candidate recall; no inference GT insertion",
+    "uncertainty": {
+      "replicates": 10000,
+      "seed": 20261014,
+      "query": "paired query bootstrap",
+      "cluster": "paired recomputed-connectivity cluster bootstrap",
+      "estimands": [
+        "query-weighted",
+        "equal-weight-connectivity"
+      ]
+    },
+    "controls": {
+      "real": true,
+      "zero": true,
+      "train_mean": "only full official-train inputs; metadata recipient fixed",
+      "wrong_spectrum": "three frozen one-to-one same-adduct/exact-parent-mass/different-connectivity donor assignments; recipient candidates and metadata fixed; physical candidate permutation",
+      "donor_seeds": [
+        20260820,
+        20260821,
+        20260822
+      ],
+      "null": "exact 1/N random; inherit train-only candidate adversary context, not sufficient for new full-system claim",
+      "e1_scope": "spectrum replacement tests leave CE/adduct fixed, so they isolate spectral readout conditional on metadata; CE/cohort causal claim excluded",
+      "donor_assignments_asset": "wrong_spectrum_assignments: load recipient_rows and seed{20260820,20260821,20260822}_donor_rows only; do not use old control metrics"
+    },
+    "runtime": "float32; one GPU; start 0 CPU workers, maximum 2 after bounded memory soak; prefetch2 if workers; no external logging; GPU launch checks required; audit/development RDKit overlay /tmp/stage1_rdkit2025 currently supplies2025.09.6; archive/install pinned dependency before portable release",
+    "test": "not accepted by development runner; final once-only S7 after whole-system freeze"
+  },
+  "e1": {
+    "row_name": "MSAlign v2 single (matched official/data-safe protocol)",
+    "released_config": "models/MSAlign/configs/massspecgym_mces.yaml",
+    "released_formula_config": "models/MSAlign/configs/massspecgym_formula.yaml",
+    "spectrum": {
+      "model": "data-safe DreaMS",
+      "revision": "dbec3a0b514a99e5056cfccde4559fda8cfe8129",
+      "readout": "contrastive embedding head (released model(batch) path)",
+      "dimension": 1024,
+      "preprocessing": "DataFormatA SpectrumPreprocessor; n_highest_peaks100; synthetic precursor as released DreaMS",
+      "cache_action": "build new train/val contrastive caches with data-safe checkpoint; existing no_head cache is not interchangeable"
+    },
+    "molecule": {
+      "model_id": "SaeedLab/MolDeBERTa-base-123M-mtr",
+      "revision": "7d06a5f39098837a6f33ed095e2fa7706e30f8b9",
+      "tokenizer_revision": "7d06a5f39098837a6f33ed095e2fa7706e30f8b9",
+      "pooling": "last_hidden_state[:,0]",
+      "dimension": 768,
+      "max_length": 128,
+      "padding": "longest in batch; attention_mask supplied",
+      "truncation": true,
+      "truncation_policy": "record original token lengths/truncation count; keep rows; no val-dependent length choice",
+      "frozen": true,
+      "dtype": "float32",
+      "l2_before_projection": false,
+      "license": "CC-BY-NC-ND-4.0 with model-card extra terms; upstream model/cache redistribution not included",
+      "tokenizer_runtime": {
+        "transformers": "4.53.3",
+        "tokenizers": "0.21.4",
+        "source": "upstream uv.lock",
+        "use_fast": true,
+        "overlay": "outputs/e0_external_contract_20261014/runtime_overlay"
+      }
+    },
+    "model": {
+      "d_shared": 512,
+      "d_hidden": 2048,
+      "d_metadata": 64,
+      "n_hidden_layers_ms_pre": 0,
+      "n_hidden_layers_ms_post": 1,
+      "n_hidden_layers_mol": 3,
+      "dropout": 0.3,
+      "temperature_init": 0.07,
+      "use_collision_energy": true,
+      "use_adduct": true
+    },
+    "metadata": {
+      "ce_dimension": 32,
+      "adduct_dimension": 32,
+      "ce": "released fixed sinusoid e/100/10000**(2i/d); learned missing vector; no trainable CE MLP",
+      "adduct": "16 category +16 polarity; sorted normalized train-only vocabulary; unknown index len(vocab); unknown polarity index2",
+      "instrument": false,
+      "precursor_as_explicit_alignment_feature": false
+    },
+    "training": {
+      "k_candidates": 128,
+      "batch_size": 128,
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-06,
+      "n_warmup_steps": 2000,
+      "n_max_steps": 20000,
+      "gradient_clip_val": 5.0,
+      "optimizer": "AdamW",
+      "schedule": "step/max(1,warmup), then 0.5*(1+cos(pi*min(progress,1)))",
+      "objective": "masked candidate CE with learned positive log-temperature; no in-batch or explicit hard mining"
+    }
+  },
+  "e2": {
+    "row_name": "EmbCos (matched official protocol)",
+    "released_config": "model_zoo/EmbCos/configs/default.yaml",
+    "spectrum": {
+      "dimension": 10050,
+      "bin_width": 0.1,
+      "max_mz": 1005.0,
+      "top_peaks": 100,
+      "peak_selection": "np.argsort(intensity)[::-1], keep first100, original observed peaks only; zero-pad (100,2), float32",
+      "bins": "floor(mz/0.1); keep mz<=1005; clip index to[0,10049]; sum intensity",
+      "transform": "log10(1+999*bin_sum/max(bin_sum))/3",
+      "empty_or_all_out_of_range": "all-zero10050 vector (explicit NaN-avoidance deviation)",
+      "synthetic_precursor": false,
+      "metadata": false,
+      "mgf_input": "existing official split-specific MGF by identifier; no re-rounded mz beyond stored .6f precision; retain precursor peak if actually observed; original TSV absent, record export rounding deviation"
+    },
+    "molecule": {
+      "fingerprint": "rdFingerprintGenerator.GetMorganGenerator(radius=2,fpSize=4096).GetFingerprint",
+      "count": false,
+      "includeChirality": false,
+      "dimension": 4096,
+      "invalid": "use existing audited canonical valid rows; new invalid aborts cache, never silently all-zero"
+    },
+    "model": {
+      "d_hidden": 1024,
+      "d_shared": 256,
+      "n_hidden_layers_ms": 3,
+      "n_hidden_layers_mol": 0,
+      "dropout": 0.25,
+      "layernorm": true,
+      "temperature_init": 0.07
+    },
+    "training": {
+      "k_candidates": 32,
+      "batch_size": 64,
+      "learning_rate": 0.0001,
+      "weight_decay": 5e-05,
+      "n_warmup_steps": 2000,
+      "n_max_steps": 16000,
+      "gradient_clip_val": 5.0,
+      "optimizer": "AdamW",
+      "schedule": "same released linear warmup plus cosine",
+      "objective": "masked candidate CE with trainable log_epsilon; normalized outputs"
+    }
+  },
+  "deviations": [
+    "one official-val direction rather than published two val/test-swapped variants",
+    "v1.5 canonical-isomeric frozen index replaces release non-isomeric normalization and old-unversioned candidate filename",
+    "existing held-out identity exclusion for train negatives; report transductive identity exposure",
+    "train-only metadata vocabulary instead of all-metadata released vocabulary",
+    "development datamodules never construct test dataset or automatically evaluate test",
+    "common uniform-tie evaluator instead of released conservative >= rank rule",
+    "three fixed local training seeds instead of source seed42 / published split-direction averaging",
+    "data-safe DreaMS checkpoint replaces ordinary checkpoint; retain embedding head, unlike SCCF no_head",
+    "locked RDKit2025.09.6, bounded workers; environment differences logged",
+    "EmbCos existing MGF export m/z .6f rounding and empty-bin guard disclosed; do not claim exact raw TSV reproduction"
+  ],
+  "required_before_gpu": [
+    "adapted train/val-only runners and cache builders; source/config digest checks; use pinned Transformers4.53.3/tokenizers0.21.4 runtime overlay or equivalent isolated env",
+    "MolDeBERTa legitimate weight access/model-card terms verification; never print token",
+    "new E1 contrastive data-safe spectra cache and canonical-isomeric MolDeBERTa cache with digests",
+    "E2 split-specific peak/bin and Morgan bit caches with identity/order digests",
+    "per-cache all-row integrity/coverage/invalid/truncation checks",
+    "new runtime input/cache/checkpoint digests and fresh host/cgroup/GPU memory checks"
+  ],
+  "claim": "matched adaptations, not exact paper reproduction; spectrum-sensitive/candidate-prior-affected; no clean/no-shortcut or synthesis-provenance claim",
+  "precursor_audit": "optional train-only derivative metadata audit may be recorded; original TSV/source precision not available locally, so raw/source stratification and origin attribution remain pending"
+}

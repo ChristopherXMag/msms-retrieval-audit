@@ -1,0 +1,20 @@
+{
+  "checked_date": "2026-11-15",
+  "pinned_public_cards": {
+    "massspecgym_model_card": {
+      "url": "https://huggingface.co/datasets/roman-bushuiev/MassSpecGym/raw/0dc77f670939718f333cd06e8a7b70fdfc5a39a5/README.md",
+      "status": "public_download_verified",
+      "bytes": 2207,
+      "sha256": "acfcdb7d3fa9d79f320e6efac8fd22ea10deab57b83aa6b44edc853a8069a2c3",
+      "declared_license": "mit"
+    },
+    "moldeberta_model_card": {
+      "url": "https://huggingface.co/SaeedLab/MolDeBERTa-base-123M-mtr/raw/7d06a5f39098837a6f33ed095e2fa7706e30f8b9/README.md",
+      "status": "public_download_verified",
+      "bytes": 5773,
+      "sha256": "32553f5fe98d2a01f33432cb11e62a0ffccf096843ac0118cfb9811bdef2817e",
+      "declared_license": "cc-by-nc-nd-4.0"
+    }
+  },
+  "scope": "License/provenance facts only; original cards are linked, not relicensed as project software."
+}

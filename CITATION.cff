@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying study and the specific released version."
+title: "MS/MS retrieval audit: MassSpecGym v1.5 reproducibility materials"
+type: software
+version: 1.0.0
+authors:
+  - family-names: Xue
+    given-names: Jiaqi
+  - family-names: Wu
+    given-names: Yutong
+  - family-names: Zhang
+    given-names: Qiang
+repository-code: "https://github.com/ChristopherXMag/msms-retrieval-audit"
+license: MIT
